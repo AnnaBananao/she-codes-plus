@@ -1,3 +1,25 @@
+//display live temperature at opening
+
+function displayLiveTemperature(response) {
+let city = document.querySelector("#city");
+city.innerHTML = `${cityName}`
+let temperature = document.querySelector("#temperature");
+temperature.innerHTML = `${Math.round(response.data.main.temp)}`
+let feelsLike = document.querySelector("#feels-like");
+feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+let humidity = document.querySelector("#humidity");
+humidity.innerHTML = `${response.data.main.humidity}`
+let wind = document.querySelector("#wind");
+wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
+let description = document.querySelector("#description");
+description.innerHTML = `${response.data.weather[0].description}`
+}
+
+let cityName = "New York";
+let apiKey = `916029c18f38059112f6c7dca6e3f10d`;
+let urlKey = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&&units=metric`;
+axios.get(urlKey).then(displayLiveTemperature);
+
 /*⏰Display time with JS*/
 
 let now = new Date();
@@ -15,6 +37,7 @@ let days = [
   "Friday",
   "Saturday"
 ];
+
 let day = days[now.getDay()];
 
 let months = [
@@ -31,8 +54,8 @@ let months = [
   "November",
   "December"
 ];
-let month = months[now.getMonth()];
 
+let month = months[now.getMonth()];
 let hours = now.getHours();
 let minutes = now.getMinutes();
 minutes = minutes > 9 ? minutes : "0" + minutes;
@@ -44,14 +67,14 @@ time.innerHTML = `${hours}:${minutes}`;
 
 function toCelsius(event) {
   event.preventDefault();
-  let celsius = document.querySelector("h2");
-  celsius.innerHTML = "14";
+  let celsius = document.querySelector("#celsius");
+  temperature.innerHTML = "14";
 }
 
 function toFareheit(event) {
   event.preventDefault();
-  let farenheit = document.querySelector("h2");
-  farenheit.innerHTML = "45";
+  let farenheit = document.querySelector("#farenheit");
+  temperature.innerHTML = "45";
 }
 
 let displayFareheit = document.querySelector("#farenheit");
@@ -72,11 +95,10 @@ function searchCity(event) {
 }
 
 function updateTemperature(response){
-  console.log(response.data);
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `${response.data.name}`
-  let h2 = document.querySelector("h2");
-  h2.innerHTML = `${Math.round(response.data.main.temp)}`;
+  let city = document.querySelector("#city");
+  city.innerHTML = `${response.data.name}`
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   let feelsLike = document.querySelector("#feels-like");
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
   let humidity = document.querySelector("#humidity");
@@ -106,10 +128,10 @@ function getLocation(position){
 
 function retrieveTempLocation(response){
   console.log(response.data);
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `${response.data.name}`
-  let h2 = document.querySelector("h2");
-  h2.innerHTML = `${Math.round(response.data.main.temp)}`;
+  let city = document.querySelector("#city");
+  city.innerHTML = `${response.data.name}`
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   let feelsLike = document.querySelector("#feels-like");
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
   let humidity = document.querySelector("#humidity");
