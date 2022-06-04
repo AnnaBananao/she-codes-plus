@@ -1,67 +1,76 @@
-//display live temperature at opening
+// ✨ display live temperature and time at opening
+
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let time = document.querySelector("#time");
+  
+  let date = now.getDate();
+  
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  
+  let day = days[now.getDay()];
+  
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  
+  let month = months[now.getMonth()]; 
+
+  return `${day}, ${month} ${date}`;
+}
+
+function formatTime(timestamp) {
+  let now = new Date(timestamp);
+  let hours = now.getHours();
+  hours = hours > 9 ? hours : "0" + hours;
+  let minutes = now.getMinutes();
+  minutes = minutes > 9 ? minutes : "0" + minutes;
+  return `${hours}:${minutes}`;
+}
 
 function displayLiveTemperature(response) {
-let city = document.querySelector("#city");
-city.innerHTML = `${cityName}`
-let temperature = document.querySelector("#temperature");
-temperature.innerHTML = `${Math.round(response.data.main.temp)}`
-let feelsLike = document.querySelector("#feels-like");
-feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
-let humidity = document.querySelector("#humidity");
-humidity.innerHTML = `${response.data.main.humidity}`
-let wind = document.querySelector("#wind");
-wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
-let description = document.querySelector("#description");
-description.innerHTML = `${response.data.weather[0].description}`
+  let city = document.querySelector("#city");
+  let temperature = document.querySelector("#temperature");
+  let feelsLike = document.querySelector("#feels-like");
+  let humidity = document.querySelector("#humidity");
+  let wind = document.querySelector("#wind");
+  let description = document.querySelector("#description");
+  let date = document.querySelector("#full-date");
+  let time = document.querySelector("#time");
+  
+  city.innerHTML = `${cityName}`
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`
+  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+  humidity.innerHTML = `${response.data.main.humidity}`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
+  description.innerHTML = `${response.data.weather[0].description}`;
+  date.innerHTML = formatDate(response.data.dt * 1000);
+  time.innerHTML = `Last updated at ${formatTime(response.data.dt * 1000)}`;
 }
 
 let cityName = "New York";
 let apiKey = `916029c18f38059112f6c7dca6e3f10d`;
 let urlKey = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&&units=metric`;
 axios.get(urlKey).then(displayLiveTemperature);
-
-/*⏰Display time with JS*/
-
-let now = new Date();
-let fullDate = document.querySelector("#full-date");
-let time = document.querySelector("#time");
-
-let date = now.getDate();
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
-
-let day = days[now.getDay()];
-
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
-
-let month = months[now.getMonth()];
-let hours = now.getHours();
-let minutes = now.getMinutes();
-minutes = minutes > 9 ? minutes : "0" + minutes;
-
-fullDate.innerHTML = `${day}, ${month} ${date}`;
-time.innerHTML = `${hours}:${minutes}`;
 
 /*🙀 Temp from farenheit to celsisus */
 
@@ -96,17 +105,18 @@ function searchCity(event) {
 
 function updateTemperature(response){
   let city = document.querySelector("#city");
-  city.innerHTML = `${response.data.name}`
   let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   let feelsLike = document.querySelector("#feels-like");
-  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
   let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = `${response.data.main.humidity}`
   let wind = document.querySelector("#wind");
-  wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   let description = document.querySelector("#description");
-  description.innerHTML = `${response.data.weather[0].description}`
+  
+  city.innerHTML = `${response.data.name}`;
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
+  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+  humidity.innerHTML = `${response.data.main.humidity}`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
+  description.innerHTML = `${response.data.weather[0].description}`;
 }
 
 let form = document.querySelector("#search-city");
@@ -127,19 +137,19 @@ function getLocation(position){
 }
 
 function retrieveTempLocation(response){
-  console.log(response.data);
   let city = document.querySelector("#city");
-  city.innerHTML = `${response.data.name}`
   let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   let feelsLike = document.querySelector("#feels-like");
-  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
   let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = `${response.data.main.humidity}`
   let wind = document.querySelector("#wind");
-  wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   let description = document.querySelector("#description");
-  description.innerHTML = `${response.data.weather[0].description}`
+
+  city.innerHTML = `${response.data.name}`;
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
+  feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
+  humidity.innerHTML = `${response.data.main.humidity}`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
+  description.innerHTML = `${response.data.weather[0].description}`;
 }
 
 let locationButton = document.querySelector("#getLocation");
