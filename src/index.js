@@ -3,9 +3,7 @@
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let time = document.querySelector("#time");
-  
   let date = now.getDate();
-  
   let days = [
     "Sunday",
     "Monday",
@@ -17,7 +15,6 @@ function formatDate(timestamp) {
   ];
   
   let day = days[now.getDay()];
-  
   let months = [
     "January",
     "February",
@@ -44,6 +41,7 @@ function formatTime(timestamp) {
   hours = hours > 9 ? hours : "0" + hours;
   let minutes = now.getMinutes();
   minutes = minutes > 9 ? minutes : "0" + minutes;
+  
   return `${hours}:${minutes}`;
 }
 
@@ -56,6 +54,7 @@ function displayLiveTemperature(response) {
   let description = document.querySelector("#description");
   let date = document.querySelector("#full-date");
   let time = document.querySelector("#time");
+  let icon = document.querySelector("#icon");
   
   city.innerHTML = `${cityName}`
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`
@@ -65,6 +64,8 @@ function displayLiveTemperature(response) {
   description.innerHTML = `${response.data.weather[0].description}`;
   date.innerHTML = formatDate(response.data.dt * 1000);
   time.innerHTML = `Last updated at ${formatTime(response.data.dt * 1000)}`;
+  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  // icon.setAttribute("alt", )
 }
 
 let cityName = "New York";
@@ -110,6 +111,7 @@ function updateTemperature(response){
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let description = document.querySelector("#description");
+  let icon = document.querySelector("#icon");
   
   city.innerHTML = `${response.data.name}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -117,6 +119,8 @@ function updateTemperature(response){
   humidity.innerHTML = `${response.data.main.humidity}`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
+  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
 }
 
 let form = document.querySelector("#search-city");
@@ -143,6 +147,7 @@ function retrieveTempLocation(response){
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let description = document.querySelector("#description");
+  let icon = document.querySelector("#icon");
 
   city.innerHTML = `${response.data.name}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -150,6 +155,7 @@ function retrieveTempLocation(response){
   humidity.innerHTML = `${response.data.main.humidity}`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
+  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 }
 
 let locationButton = document.querySelector("#getLocation");
