@@ -65,7 +65,7 @@ function displayLiveTemperature(response) {
   date.innerHTML = formatDate(response.data.dt * 1000);
   time.innerHTML = `Last updated at ${formatTime(response.data.dt * 1000)}`;
   icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-  // icon.setAttribute("alt", )
+  icon.setAttribute("alt", `${response.data.weather[0].description}`)
 }
 
 let cityName = "New York";
