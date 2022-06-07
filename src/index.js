@@ -123,7 +123,9 @@ function updateTemperature(response){
 
 }
 
+let searchButton = document.querySelector("#search-button");
 let form = document.querySelector("#search-city");
+searchButton.addEventListener("click", searchCity);
 form.addEventListener("submit", searchCity);
 
 /* Get temperature from location */
