@@ -55,9 +55,11 @@ function displayLiveTemperature(response) {
   let date = document.querySelector("#full-date");
   let time = document.querySelector("#time");
   let icon = document.querySelector("#icon");
+
+  celsiusTemperature = `${Math.round(response.data.main.temp)}`;
   
   city.innerHTML = `${cityName}`
-  temperature.innerHTML = `${Math.round(response.data.main.temp)}`
+  temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
   humidity.innerHTML = `${response.data.main.humidity}`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
@@ -77,20 +79,26 @@ axios.get(urlKey).then(displayLiveTemperature);
 
 function toCelsius(event) {
   event.preventDefault();
-  let celsius = document.querySelector("#celsius");
-  temperature.innerHTML = "14";
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = Math.round(celsiusTemperature);
+  displayCelsius.classList.add("active");
+  displayFareheit.classList.remove("active");
 }
 
 function toFareheit(event) {
   event.preventDefault();
-  let farenheit = document.querySelector("#farenheit");
-  temperature.innerHTML = "45";
+  let farenheitTemp = (celsiusTemperature * 9/5) + 32;
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = Math.round(farenheitTemp);
+  displayCelsius.classList.remove("active");
+  displayFareheit.classList.add("active");
 }
 
+let celsiusTemperature = null;
 let displayFareheit = document.querySelector("#farenheit");
-displayFareheit.addEventListener("click", toFareheit);
-
 let displayCelsius = document.querySelector("#celsius");
+
+displayFareheit.addEventListener("click", toFareheit);
 displayCelsius.addEventListener("click", toCelsius);
 
 /* challenge 5 js */ 
@@ -112,6 +120,8 @@ function updateTemperature(response){
   let wind = document.querySelector("#wind");
   let description = document.querySelector("#description");
   let icon = document.querySelector("#icon");
+  celsiusTemperature = `${Math.round(response.data.main.temp)}`;
+
   
   city.innerHTML = `${response.data.name}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -120,7 +130,6 @@ function updateTemperature(response){
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
   icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-
 }
 
 let searchButton = document.querySelector("#search-button");
@@ -150,6 +159,8 @@ function retrieveTempLocation(response){
   let wind = document.querySelector("#wind");
   let description = document.querySelector("#description");
   let icon = document.querySelector("#icon");
+  celsiusTemperature = `${Math.round(response.data.main.temp)}`;
+
 
   city.innerHTML = `${response.data.name}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;

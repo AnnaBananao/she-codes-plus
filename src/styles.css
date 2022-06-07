@@ -33,6 +33,15 @@ a:hover {
   color: rebeccapurple;
 }
 
+.card-body .active {
+  color: black;
+  cursor: default;
+}
+
+.card-body .active:hover {
+  text-decoration: none;
+}
+
 h3 {
   font-size: large;
 }
