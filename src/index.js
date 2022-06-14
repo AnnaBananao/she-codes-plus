@@ -161,7 +161,6 @@ function retrieveTempLocation(response){
   let icon = document.querySelector("#icon");
   celsiusTemperature = `${Math.round(response.data.main.temp)}`;
 
-
   city.innerHTML = `${response.data.name}`;
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
   feelsLike.innerHTML = `${Math.round(response.data.main.feels_like)}`;
@@ -173,3 +172,34 @@ function retrieveTempLocation(response){
 
 let locationButton = document.querySelector("#getLocation");
 locationButton.addEventListener("click", handlePosition);
+
+/* weather forecast */
+
+function displayForecast() {
+  let forecast = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forecastHTML = forecastHTML +
+    `<div class="col-2">
+    <div class="small-cards">
+    <div class="card-body">
+      <h3 class="card-title">${day}</h3>
+      <img
+      class="small-images"
+      src="src/sun.jpg"
+      alt="Small image of sun"
+      />
+      <p class="card-text">
+        <span class="max-temp">7&deg; </span>
+        <span class="min-temp">-3&deg;</span>
+      </p>
+    </div>
+    </div>
+    </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecast.innerHTML = forecastHTML;
+}
+
+displayForecast();
