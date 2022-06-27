@@ -1,5 +1,4 @@
-// ✨ display live temperature and time at opening
-
+/* ✨ display live temperature and time at opening */
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let time = document.querySelector("#time");
@@ -101,7 +100,6 @@ let displayCelsius = document.querySelector("#celsius");
 displayFareheit.addEventListener("click", toFareheit);
 displayCelsius.addEventListener("click", toCelsius);
 
-/* challenge 5 js */ 
 /* Get real time data */
 
 function searchCity(event) {
@@ -130,6 +128,8 @@ function updateTemperature(response){
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
   icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
+  getForecast(response.data.coord);
 }
 
 let searchButton = document.querySelector("#search-button");
@@ -151,6 +151,13 @@ function getLocation(position){
   axios.get(urlKey).then(retrieveTempLocation);
 }
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = `916029c18f38059112f6c7dca6e3f10d`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+}
+
 function retrieveTempLocation(response){
   let city = document.querySelector("#city");
   let temperature = document.querySelector("#temperature");
@@ -168,17 +175,19 @@ function retrieveTempLocation(response){
   wind.innerHTML = `${Math.round(response.data.wind.speed)}`;
   description.innerHTML = `${response.data.weather[0].description}`;
   icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
+  getForecast(response.data.coord);
 }
 
 let locationButton = document.querySelector("#getLocation");
 locationButton.addEventListener("click", handlePosition);
 
-/* weather forecast */
+/* weather forecast HTML/CSS */
 
 function displayForecast() {
   let forecast = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
   days.forEach(function (day) {
     forecastHTML = forecastHTML +
     `<div class="col-2">
