@@ -156,6 +156,7 @@ function getForecast(coordinates) {
   let apiKey = `916029c18f38059112f6c7dca6e3f10d`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function retrieveTempLocation(response){
@@ -184,7 +185,8 @@ locationButton.addEventListener("click", handlePosition);
 
 /* weather forecast HTML/CSS */
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data)
   let forecast = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
@@ -211,4 +213,4 @@ function displayForecast() {
   forecast.innerHTML = forecastHTML;
 }
 
-displayForecast();
+//displayForecast();
