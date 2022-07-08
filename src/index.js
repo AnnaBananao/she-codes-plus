@@ -76,32 +76,6 @@ let apiKey = `916029c18f38059112f6c7dca6e3f10d`;
 let urlKey = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&&units=metric`;
 axios.get(urlKey).then(displayLiveTemperature);
 
-/*🙀 Temp from farenheit to celsisus */
-
-function toCelsius(event) {
-  event.preventDefault();
-  let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = Math.round(celsiusTemperature);
-  displayCelsius.classList.add("active");
-  displayFareheit.classList.remove("active");
-}
-
-function toFareheit(event) {
-  event.preventDefault();
-  let farenheitTemp = (celsiusTemperature * 9/5) + 32;
-  let temperature = document.querySelector("#temperature");
-  temperature.innerHTML = Math.round(farenheitTemp);
-  displayCelsius.classList.remove("active");
-  displayFareheit.classList.add("active");
-}
-
-let celsiusTemperature = null;
-let displayFareheit = document.querySelector("#farenheit");
-let displayCelsius = document.querySelector("#celsius");
-
-displayFareheit.addEventListener("click", toFareheit);
-displayCelsius.addEventListener("click", toCelsius);
-
 /* Get real time data */
 
 function searchCity(event) {
