@@ -72,10 +72,6 @@ footer {
   border: none;
 }
 
-.unit-divider {
-  font-size: small;
-}
-
 .main-image {
   display: block;
   margin: 10px;
@@ -102,4 +98,8 @@ footer {
 
 .max-temp {
   font-weight: bold;
+}
+
+.degree {
+  font-size: medium;
 }
